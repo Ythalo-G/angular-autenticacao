@@ -1,0 +1,9 @@
+nav{
+    height: 100px;
+    background:cadetblue;
+   
+}
+.principal{
+    
+    background-image: linear-gradient(to bottom right, cadetblue, white);
+}
