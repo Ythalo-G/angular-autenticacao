@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment as env } from 'src/environments/environment';
@@ -17,7 +17,8 @@ export class LancamentoService {
   listarTodos(): Observable<any> {
     const id = this.httpService.obterIdUsuario();
     return this.http.get(
-      env.apiBaseURL + 'api/lancamentos/funcionario/' + id
+      env.apiBaseURL + 'api/lancamentos/funcionario/' + id,
+      this.httpService.headers()
     );
   }
 }

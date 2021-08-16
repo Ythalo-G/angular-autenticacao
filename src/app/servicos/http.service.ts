@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DadosUsuario } from '../models/dados-usuario.modal';
 
@@ -30,6 +31,14 @@ export class HttpService {
     }
   }
 
- 
+   headers() {
+    let httpHeaders = new HttpHeaders();
+    if (localStorage['token']){
+      httpHeaders = httpHeaders.set('Authorization', 'Bearer ' + localStorage['token']);
+    }
+    
+    return { headers: httpHeaders };
+
+   }
 
 }

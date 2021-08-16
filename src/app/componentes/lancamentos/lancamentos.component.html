@@ -1,1 +1,24 @@
-<p>lancamentos works!</p>
+<table class="table">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">DATA</th>
+        <th scope="col">HORA</th>
+        <th scope="col">TIPO</th>
+        <th scope="col">LOCALIZAÇÃO</th>
+        <th>lo</th>
+      </tr>
+      <tr *ngFor="let lancamento of lancamentos" >
+        <td>{{lancamento.id}}</td>
+        <td >{{lancamento.data | data | date: "dd/MM/yyyy"}}</td>
+        <td>{{lancamento.data | hora}}</td>
+        <td>{{lancamento.tipo | tipo}}</td>
+        <td><a href="https://www.google.com/maps/place/{{lancamento.localizacao}}" target="_blanck">{{lancamento.localizacao}}</a></td>
+        <td>
+            <a [href]="urlLocalizacao(lancamento.localizacao)"
+            target="_blank">
+              {{lancamento.localizacao}}
+            </a>
+           </td>
+      </tr>
+  </table>
+  
