@@ -1,3 +1,7 @@
+{{ dataHoraAtual }}
+<p><button (click)="atualizarDataHora()">Atualizar data</button></p>
+
+<p>Data em tempo real: {{ dataTempoReal }}</p>
 <table class="table">
       <tr>
         <th scope="col">ID</th>
@@ -18,7 +22,6 @@
             target="_blank">
               {{lancamento.localizacao}}
             </a>
-           </td>
+        </td>
       </tr>
   </table>
-  

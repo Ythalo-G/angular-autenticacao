@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Lancamento } from 'src/app/models/lancamentos.model';
+import { DataHoraService } from 'src/app/servicos/data-hora.service';
 import { LancamentoService } from 'src/app/servicos/lancamento.service';
 
 @Component({
@@ -7,22 +9,52 @@ import { LancamentoService } from 'src/app/servicos/lancamento.service';
   templateUrl: './lancamentos.component.html',
   styleUrls: ['./lancamentos.component.css']
 })
-export class LancamentosComponent implements OnInit {
- 
+export class LancamentosComponent implements OnInit, OnDestroy{
+
   lancamentos: Lancamento[] = [];
+  dataHoraAtual = ''
+  dataHoraAtualSub: Subscription | undefined;
   
-  constructor(private lancamentoService: LancamentoService) { }
+  dataTempoReal = ''
+  dataTempoRealSub: Subscription | undefined;
+
+
+
+  constructor(
+    private lancamentoService: LancamentoService,
+    private dataHoraService: DataHoraService
+  ) { }
+
+  ngOnDestroy(): void {
+                      //?se diferende de nulo chama o unsubscribe    
+    this.dataHoraAtualSub?.unsubscribe();
+    this.dataTempoRealSub?.unsubscribe();
+    
+  }
 
   ngOnInit(): void {
-    //id| data|  hora|  tipo| localização 
     this.lancamentoService.listarTodos().subscribe(
       dados => this.lancamentos = dados.data.content,
-      () => alert('Erro obtendo lançamentos, ')
+      () => alert('Erro obtendo lançamentos.')
     );
-   
+    this.dataHoraAtualSub = this.dataHoraService.dataHora.subscribe(
+      dataHora => this.dataHoraAtual = dataHora
+    );
+  
+    this.dataTempoRealSub = this.dataHoraService.dataHoraTempoReal.subscribe(
+      dataHora => this.dataTempoReal = dataHora
+    );
+  
+  
+  
   }
+
   urlLocalizacao(localizacao: string) {
     return "https://www.google.com/maps/search/?api=1&query=" + localizacao;
+  }
+
+  atualizarDataHora() {
+    this.dataHoraService.atualizarDataHora();
   }
 
 }
