@@ -2,6 +2,11 @@
 <p><button (click)="atualizarDataHora()">Atualizar data</button></p>
 
 <p>Data em tempo real: {{ dataTempoReal }}</p>
+<p>
+  <a (click)="downloadCSV()">
+    <i class="bi-file-earmark-excel"></i>
+  </a>
+</p>
 <table class="table">
       <tr>
         <th scope="col">ID</th>
